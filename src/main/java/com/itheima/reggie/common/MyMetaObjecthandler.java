@@ -1,15 +1,14 @@
 package com.itheima.reggie.common;
-
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
-
 /**
  * 自定义元数据对象处理器
+ *      公共字段赋值，自动填充
  */
-@Component
+@Component  //注意:这个要记得交给spring容器管理，不然这个功能就没发用。。。。
 @Slf4j
 public class MyMetaObjecthandler implements MetaObjectHandler {
     /**
@@ -34,7 +33,7 @@ public class MyMetaObjecthandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         log.info("公共字段自动填充[update]...");
         log.info(metaObject.toString());
-
+        // 自动填充
         long id = Thread.currentThread().getId();
         log.info("线程id为：{}",id);
 

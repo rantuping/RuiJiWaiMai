@@ -1,5 +1,9 @@
 package com.itheima.reggie.filter;
-
+/*
+* 登陆的过滤器
+*   1、登陆过滤
+*   2、在这里，登陆了的情况设置下，设置ThreadLocal的id，以便于业务的公共字段获取id，并进行自动填充
+* */
 import com.alibaba.fastjson.JSON;
 import com.itheima.reggie.common.BaseContext;
 import com.itheima.reggie.common.R;
@@ -52,19 +56,18 @@ public class LoginCheckFilter implements Filter {
             log.info("用户已登录，id为：{}", request.getSession().getAttribute("employee"));
 
             Long empId = (Long) request.getSession().getAttribute("employee");
-            BaseContext.setCurrentId(empId);
+            BaseContext.setCurrentId(empId);            // 登陆情况下，设置ThreadLocal的id
             long id = Thread.currentThread().getId();
             log.info("线程ID为：{}", id);
             filterChain.doFilter(request, response);
             return;
         }
-
         //4-2 判断登陆状态，若已经登陆直接放行(移动端)
         if (request.getSession().getAttribute("user") != null) {
             log.info("用户已登录，id为：{}", request.getSession().getAttribute("user"));
 
             Long empId = (Long) request.getSession().getAttribute("user");
-            BaseContext.setCurrentId(empId);
+            BaseContext.setCurrentId(empId);            // 登陆情况下，设置ThreadLocal的id
             long id = Thread.currentThread().getId();
             log.info("线程ID为：{}", id);
             filterChain.doFilter(request, response);
@@ -77,7 +80,6 @@ public class LoginCheckFilter implements Filter {
 
     /**
      * 进行路径匹配，检查是否可以放行
-     *
      * @param urls       不拦截的路径
      * @param requestURI 请求路径
      * @return

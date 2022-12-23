@@ -8,11 +8,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Slf4j
 @SpringBootApplication
-@ServletComponentScan
+@ServletComponentScan       // 使过滤器生效
 @EnableTransactionManagement
 public class ReggieApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ReggieApplication.class,args);
-        log.info("reggie==========>启动成功");
+        SpringApplication.run(ReggieApplication.class, args);
+        log.info("项目启动成功...");
     }
 }

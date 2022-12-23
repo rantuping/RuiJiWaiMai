@@ -9,14 +9,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-
+// 表示拦截哪些类型的controller注解
 @ControllerAdvice(annotations = {RestController.class, Controller.class})
 @ResponseBody
 @Slf4j
 public class GlobalExceptionHandler {
 
     /**
+     * 重复添加员工时，所报的异常啥的。
      * 异常处理方法
+     * 处理SQLIntegrityConstraintViolationException异常的方法
      * @param ex
      * @return
      */
